@@ -83,22 +83,22 @@ The data items within the rosbag are listed below:
 
 **The toolkit provided in this package requires [gnss_comm](https://github.com/HKUST-Aerial-Robotics/gnss_comm) library.**
 ### 5.1. Convert GNSS raw measurement to RINEX File
-Many GNSS softwares like RTKLIB accept RINEX file as the input. To convert the GNSS raw measurements in the rosbag to the corresponding RINEX file, firstly clone this repo to your catkin workspace and set `INPUT_BAG_FILEPATH` and `OUTPUT_RINEX_FILEPATH` in `toolkit/src/bag2rinex.cpp`. Then build and run the toolkit with:
+
 ```
 cd ~/catkin_ws/
 catkin_make
 source devel/setup.bash
-rosrun gvins_dataset_toolkit bag2rinex
+rosrun gvins_dataset_toolkit bag2rinex INPUT_BAG_FILEPATH OUTPUT_RINEX_FILEPATH
 ```
 The observation RINEX file should be generated after a while. The corresponding GNSS ephemeris RINEX file can be found in `GVINS-Dataset/data/ephemeris_rinex/`. 
 
 ### 5.2 Save RTK solution to csv file
-To extract the RTK solution and status to a local csv file, firstly set `INPUT_BAG_FILEPATH` and `OUTPUT_RTK_FILEPATH` in `toolkit/src/bag2rtk_solution.cpp`.  Then build and run the toolkit with:
+
 ```
 cd ~/catkin_ws/
 catkin_make
 source devel/setup.bash
-rosrun gvins_dataset_toolkit bag2rtk_solution
+rosrun gvins_dataset_toolkit bag2rtk_solution INPUT_BAG_FILEPATH OUTPUT_RINEX_FILEPATH
 ```
 Each record in the generated csv file is in the form of:
 ```
