@@ -56,8 +56,10 @@ The docker image `gnss_comm:latest` should be successfully built after a while. 
 
 ## 4. Acknowledgements
 Many of the definitions and utility functions in this package are adapted from [RTKLIB](http://www.rtklib.com/).
-[gnss_comm](https://github.com/HKUST-Aerial-Robotics/gnss_comm)
-[GVINS-Dataset](https://github.com/HKUST-Aerial-Robotics/GVINS-Dataset)
+
+[Project gnss_comm](https://github.com/HKUST-Aerial-Robotics/gnss_comm)
+
+[Project GVINS-Dataset](https://github.com/HKUST-Aerial-Robotics/GVINS-Dataset)
 
 ## 5. License
 The source code is released under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) license.
