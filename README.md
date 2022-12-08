@@ -2,7 +2,7 @@
 
 **Original Authors:** CAO Shaozu (shaozu.cao AT gmail.com)
 
-Modificator: zzwu29
+modifier: zzwu29
 
 The *gnss_comm* package contains basic definitions and utility functions for GNSS raw measurement processing. 
 
