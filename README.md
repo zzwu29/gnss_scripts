@@ -1,5 +1,4 @@
 # gnss_scripts
-# gnss_scripts
 
 **Original Authors:** CAO Shaozu (shaozu.cao AT gmail.com)
 
