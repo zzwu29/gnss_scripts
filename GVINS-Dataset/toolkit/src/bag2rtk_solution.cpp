@@ -21,14 +21,14 @@ struct RTKState
 };
 typedef std::shared_ptr<RTKState> RTKStatePtr;
 
-void extract_rtk_states(const std::string &bag_filepath, std::vector<RTKStatePtr> &all_states)
+void extract_rtk_states(const std::string &bag_filepath, std::vector<RTKStatePtr> &all_states, const std::string &rtk_sol_topic)
 {
     all_states.clear();
 
     rosbag::Bag bag;
     bag.open(bag_filepath, rosbag::bagmode::Read);
     std::vector<std::string> topics;
-    topics.push_back("/ublox_driver/receiver_pvt");
+    topics.push_back(rtk_sol_topic);
 
     rosbag::View view(bag, rosbag::TopicQuery(topics));
     for(rosbag::MessageInstance const m : view)
@@ -78,22 +78,29 @@ void save_states(const std::vector<RTKStatePtr> &seq, const std::string &filepat
 
 int main(int argc, char **argv)
 {
-    if(argc!=3)
+    if(argc!=3 && argc!=4)
     {
-        std::cerr<<"----- Error: Paramter must be 2 (bag_input and rtk_output) ! -----"<<std::endl;
+        std::cerr<<"----- Error: Paramter must be 2 (bag_input and rtk_output) or 3 (bag_input, rtk_output and gnss_comm/GnssPVTSolnMsg)! -----"<<std::endl;
         return 1;
     }
+    std::string bag_file(argv[1]), output_file(argv[2]);
+    std::string rtk_sol_topic("/ublox_driver/receiver_pvt");
 
-    std::cerr<<"Input bag: "<<argv[1]<<std::endl;
+    if (argc == 4)
+    {
+        rtk_sol_topic=std::string(argv[3]);
+    }
+
+    std::cerr<<"Input bag: "<<bag_file<<", gnss_comm/GnssPVTSolnMsg topic: "<<rtk_sol_topic<<std::endl;
     std::cerr<<"Start read from bag!"<<std::endl;
     // load RTK states
     std::vector<RTKStatePtr> all_states;
-    extract_rtk_states(argv[1], all_states);
+    extract_rtk_states(bag_file, all_states, rtk_sol_topic);
 
-    std::cerr<<"Output rinex obs file: "<<argv[2]<<std::endl;
+    std::cerr<<"Output rinex obs file: "<<output_file<<std::endl;
     std::cerr<<"Start output to rinex obs file !"<<std::endl;
     // write to file
-    save_states(all_states, argv[2]);
+    save_states(all_states, output_file);
 
     std::cout << "Done.\n";
     return 0;
